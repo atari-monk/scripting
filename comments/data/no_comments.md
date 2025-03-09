@@ -1,4 +1,0 @@
-```typescript
-
-const temp = 'asdasdas'
-```
