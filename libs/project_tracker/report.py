@@ -16,9 +16,8 @@ def generate_markdown_report(data_file_path, stats_file_path):
     
     total_estimate = 0
     total_minutes = 0
-    found_data = False  # Flag to check if there are any valid entries
-    
-    # We group the tasks by date
+    found_data = False
+
     tasks_by_day = {}
 
     for day_entry in data:
@@ -29,16 +28,13 @@ def generate_markdown_report(data_file_path, stats_file_path):
                 tasks_by_day[entry_date] = []
             tasks_by_day[entry_date].append(day_entry)
 
-    # Now we will iterate over the tasks_by_day dictionary to generate the report
     for entry_date, tasks in tasks_by_day.items():
         found_data = True
         report += f"## Day: {entry_date.strftime('%Y-%m-%d')}\n"
         
-        # Prepare day-level stats
         daily_estimate = 0
         daily_minutes = 0
 
-        # Add a table for all tasks on the day
         report += "| Project | Task | Start | End | Estimated Time | Minutes |\n"
         report += "|---------|------|-------|-----|----------------|---------|\n"
         
@@ -50,14 +46,11 @@ def generate_markdown_report(data_file_path, stats_file_path):
 
             estimated_time_str = f"{estimated_time // 60:02}:{estimated_time % 60:02}"
 
-            # Append task data for this day
             report += f"| {record['project']} | {record['task']} | {start_time} | {end_time} | {estimated_time_str} | {minutes} |\n"
 
-            # Update day stats
             daily_estimate += estimated_time
             daily_minutes += minutes
 
-        # Add Day Stats after the tasks
         report += "\n| Day Stats             | Value   |\n"
         report += "|-------------------|---------|\n"
         report += f"| Estimated Time    | {format_time(daily_estimate)} |\n"
@@ -70,7 +63,6 @@ def generate_markdown_report(data_file_path, stats_file_path):
     if not found_data:
         report = "No records found for this month."
     else:
-        # Add Monthly Stats at the end if data was found
         report += "## Month Stats\n"
         report += "| Stat              | Value   |\n"
         report += "|-------------------|---------|\n"
