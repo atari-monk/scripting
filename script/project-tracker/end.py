@@ -8,7 +8,7 @@ from libs.json import print_json
 def main():
     default_directory = r'C:\atari-monk\code\atari-monk-blog\project-tracker\2025\\'
     current_month = datetime.now().strftime('%m')
-    default_file_path = os.path.join(default_directory, current_month + '.json')
+    default_file_path = os.path.join(default_directory, current_month, 'tasks.json')
 
     if len(sys.argv) != 2:
         print(f"No argument provided, using default path: {default_file_path}")
