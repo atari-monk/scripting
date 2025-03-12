@@ -1,4 +1,4 @@
-from libs.json.json import load_json, save_json
+from libs.json import load_json, save_json
 from libs.project_tracker.util import format_time
 
 def calculate_day_stats(load_file_path, save_file_path):

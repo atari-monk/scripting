@@ -1,6 +1,5 @@
 from datetime import datetime
-from libs.json.json import load_json, save_json
-from libs.project_tracker.util import get_records_for_date
+from libs.json import load_json, save_json, format_json
 
 def add_new_task(file_path):
     data = load_json(file_path)
@@ -13,8 +12,6 @@ def add_new_task(file_path):
     current_time = datetime.now().strftime("%H:%M")
     today = datetime.now()
     
-    records = get_records_for_date(data, today.year, today.month, today.day)
-    
     new_task = {
         "date": today.strftime("%Y-%m-%d"),
         "project": project,
@@ -26,6 +23,6 @@ def add_new_task(file_path):
         "notes": []
     }
     
-    records.append(new_task)
-    
-    save_json(file_path, data)
+    data.append(new_task)
+    json_string = format_json(data)
+    save_json(file_path, json_string)

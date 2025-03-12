@@ -1,5 +1,5 @@
 from datetime import datetime
-from libs.json.json import load_json
+from libs.json import load_json
 from libs.project_tracker.util import format_time
 
 def generate_markdown_report(data_file_path, stats_file_path):

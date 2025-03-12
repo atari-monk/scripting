@@ -1,5 +1,5 @@
 from datetime import datetime
-from libs.json.json import load_json, save_json
+from libs.json import load_json, save_json
 from libs.project_tracker.util import get_records_for_date, calculate_minutes
 
 def update_end_time_for_active_tasks(file_path):

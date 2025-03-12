@@ -11,15 +11,3 @@ def load_json(file_path):
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
     return None
-
-def save_json(file_path, data):
-    try:
-        with open(file_path, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=2, ensure_ascii=False, separators=(',', ': '))
-    except Exception as e:
-        print(f"Error saving JSON: {e}")
-
-def print_json(file_path):
-    data = load_json(file_path)
-    if data is not None:
-        print(json.dumps(data, indent=2, ensure_ascii=False, separators=(',', ': ')))
