@@ -1,11 +1,8 @@
 from datetime import datetime
 
-def get_records_for_date(data, year, month, day):
-    target_date = f"{year:04d}-{month:02d}-{day:02d}"
-    for entry in data:
-        if entry["date"] == target_date:
-            return data
-    return []
+def get_active(data):
+    active_records = [entry for entry in data if not entry.get("end_time") and "start_time" in entry]
+    return active_records[-1] if active_records else None
 
 def calculate_minutes(start_time, end_time):
     start = datetime.strptime(start_time, "%H:%M")
