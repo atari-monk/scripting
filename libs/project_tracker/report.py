@@ -2,7 +2,7 @@ from datetime import datetime
 from libs.json import load_json
 from libs.project_tracker.util import format_time
 
-def generate_markdown_report(data_file_path, stats_file_path):
+def generate_markdown_report(data_file_path, stats_file_path, month):
     data = load_json(data_file_path)
     stats_data = load_json(stats_file_path)
 
@@ -12,6 +12,15 @@ def generate_markdown_report(data_file_path, stats_file_path):
     today = datetime.now()
     current_year, current_month = today.year, today.month
     
+    if month:
+        try:
+            month = int(month)
+            if not (1 <= month <= 12):
+                raise ValueError("Invalid month value. It should be between 1 and 12.")
+            current_month = month
+        except ValueError:
+            return "Invalid month format. Please provide an integer between 1 and 12."
+
     report = f"# Report for {current_year}-{current_month:02d}\n\n"
     
     total_estimate = 0

@@ -1,27 +1,16 @@
 import sys
 sys.path.append('C:\\atari-monk\\code\\scripting')
-import os
-from datetime import datetime
-from libs.project_tracker import generate_markdown_report
+from libs.project_tracker import get_file_paths, generate_markdown_report
 
 def main():
-    default_directory = r'C:\atari-monk\code\atari-monk-blog\project-tracker\2025\\'
-    current_month = datetime.now().strftime('%m')
-    default_task_file_path = os.path.join(default_directory, current_month, 'tasks.json')
-    default_stats_file_path = os.path.join(default_directory, current_month, 'stats.json')
+    config = {
+    'base_directory': r'C:\atari-monk\code\atari-monk-blog\project-tracker',
+    'filename_1': 'tasks.json',
+    'filename_2': 'stats.json'
+    }
+    file_1_path, file_2_path = get_file_paths(config, sys.argv)
 
-    if len(sys.argv) != 3:
-        print(f"Usage: .\\generate_report.py <path_to_data_json> <path_to_stats_json>")
-        print(f"Using default data file: {default_task_file_path}")
-        print(f"Using default stats file: {default_stats_file_path}")
-        
-        task_file_path = default_task_file_path
-        stats_file_path = default_stats_file_path
-    else:
-        task_file_path = sys.argv[1]
-        stats_file_path = sys.argv[2]
-    
-    report_path = generate_markdown_report(task_file_path, stats_file_path)
+    report_path = generate_markdown_report(file_1_path, file_2_path, sys.argv[1])
     
     if report_path:
         print(f"Markdown report saved to: {report_path}")
