@@ -1,7 +1,7 @@
 from libs.json import load_json, format_json, save_json
 from libs.project_tracker.util import format_time
 
-def calculate_day_stats(load_file_path, save_file_path):
+def calculate_days_stats(load_file_path, save_file_path):
     data = load_json(load_file_path)
     if data is None:
         return
