@@ -1,16 +1,30 @@
 import os
 from datetime import datetime
+from libs.shared import get_script_info
 
-def get_script_info(args):
-    script_path = args[0]
-    script_name = os.path.basename(script_path)
-    script_directory = os.path.dirname(script_path)
+def get_file_path(config, args=[]):
+    args, script_name, _ = get_script_info(args)
     
-    print(f"Script Name: {script_name}")
-    print(f"Script Directory: {script_directory}")
-    print(f"Arguments: {args}")
+    current_year = datetime.now().strftime('%Y')
+    current_month = datetime.now().strftime('%m')
     
-    return args[1:], script_name, script_directory
+    base_directory = config['base_directory']
+    filename = config['filename']
+    
+    default_directory = os.path.join(base_directory, current_year)
+    default_file_path = os.path.join(default_directory, current_month, filename)
+    
+    if len(args) == 0:
+        file_path = default_file_path
+    elif len(args) == 1:
+        month = args[0].zfill(2)
+        file_path = os.path.join(default_directory, month, filename)
+    elif len(args) == 2:
+        file_path = args[0]
+    else:
+        raise ValueError(f"Invalid arguments. Usage: <{script_name}> [<month_number>] <path_to_json_file>")
+    
+    return file_path
 
 def get_file_paths(config, args=[]):
     args, script_name, _ = get_script_info(args)
@@ -40,27 +54,3 @@ def get_file_paths(config, args=[]):
         raise ValueError(f"Invalid arguments. Usage: <{script_name}> [<month_number>] <path_to_input_json_file> <path_to_output_json_file>")
     
     return file_1_path, file_2_path
-
-def get_file_path(config, args=[]):
-    args, script_name, _ = get_script_info(args)
-    
-    current_year = datetime.now().strftime('%Y')
-    current_month = datetime.now().strftime('%m')
-    
-    base_directory = config['base_directory']
-    filename = config['filename']
-    
-    default_directory = os.path.join(base_directory, current_year)
-    default_file_path = os.path.join(default_directory, current_month, filename)
-    
-    if len(args) == 0:
-        file_path = default_file_path
-    elif len(args) == 1:
-        month = args[0].zfill(2)
-        file_path = os.path.join(default_directory, month, filename)
-    elif len(args) == 2:
-        file_path = args[0]
-    else:
-        raise ValueError(f"Invalid arguments. Usage: <{script_name}> [<month_number>] <path_to_json_file>")
-    
-    return file_path
