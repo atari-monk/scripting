@@ -1,1 +1,1 @@
-from .args import get_script_info, get_file_path
+from .args import get_script_info
