@@ -1,17 +1,36 @@
 import os
 import subprocess
 
-SCRIPTS = {
-    "new_task": r"C:\atari-monk\code\scripting\script\project-tracker\new.py",
-    "end_task": r"C:\atari-monk\code\scripting\script\project-tracker\end.py",
-    "boot_time": r"C:\atari-monk\code\scripting\libs\time\boot_time.py",
+SCRIPT_CATEGORIES = {
+    "Project Tracker Commands": {
+        "New Task": r"C:\atari-monk\code\scripting\script\project-tracker\new.py",
+        "End Task": r"C:\atari-monk\code\scripting\script\project-tracker\end.py",
+        "Stats": r"C:\atari-monk\code\scripting\script\project-tracker\stats.py",
+        "Report": r"C:\atari-monk\code\scripting\script\project-tracker\report.py",
+    },
+    "Links Commands": {
+        "New Link": r"C:\atari-monk\code\scripting\script\links\new.py",
+    },
+    "Utility Commands": {
+        "New Prompt": r"C:\atari-monk\code\scripting\script\prompt_tools\prompt.py",
+        "Boot Time": r"C:\atari-monk\code\scripting\libs\time\boot_time.py",
+        "Print Json": r"C:\atari-monk\code\scripting\script\json\print_json.py"
+    }
 }
 
-def print_menu():
-    print("\nAvailable Commands:")
-    for i, (name, _) in enumerate(SCRIPTS.items(), start=1):
-        print(f"{i}. {name}")
+def print_main_menu():
+    print("\nAvailable Categories:")
+    for i, category in enumerate(SCRIPT_CATEGORIES.keys(), start=1):
+        print(f"{i}. {category}")
     print("0. Exit")
+
+def print_sub_menu(category):
+    print(f"\nAvailable Scripts in {category}:")
+    scripts = list(SCRIPT_CATEGORIES[category].keys())
+    for i, script_name in enumerate(scripts, start=1):
+        print(f"{i}. {script_name}")
+    print("0. Back to Main Menu")
+    return scripts
 
 def run_script(script_path, *args):
     if not os.path.exists(script_path):
@@ -27,24 +46,44 @@ def run_script(script_path, *args):
 
 def master_script(args=None):
     while True:
-        print_menu()
-        choice = input("\nEnter a number to run a script: ")
+        print_main_menu()
+        category_choice = input("\nSelect a category: ")
 
-        if choice == "0":
+        if category_choice == "0":
             print("Exiting...")
             break
 
         try:
-            choice = int(choice)
-            if 1 <= choice <= len(SCRIPTS):
-                script_name = list(SCRIPTS.keys())[choice - 1]
-                script_path = SCRIPTS[script_name]
+            category_index = int(category_choice) - 1
+            categories = list(SCRIPT_CATEGORIES.keys())
 
-                script_args = args if args else input(f"Enter arguments for {script_name} (separated by spaces): ").split()
+            if 0 <= category_index < len(categories):
+                selected_category = categories[category_index]
 
-                print(f"\nRunning: {script_name} ({script_path})")
-                run_script(script_path, *script_args)
+                while True:
+                    scripts = print_sub_menu(selected_category)
+                    script_choice = input("\nSelect a script to run: ")
+
+                    if script_choice == "0":
+                        break
+
+                    try:
+                        script_index = int(script_choice) - 1
+
+                        if 0 <= script_index < len(scripts):
+                            script_name = scripts[script_index]
+                            script_path = SCRIPT_CATEGORIES[selected_category][script_name]
+
+                            script_args = args if args else input(f"Enter arguments for {script_name} (separated by spaces): ").split()
+
+                            print(f"\nRunning: {script_name} ({script_path}) with args: {script_args}")
+                            run_script(script_path, *script_args)
+                        else:
+                            print("Invalid script choice. Try again.")
+                    except ValueError:
+                        print("Please enter a valid number.")
+
             else:
-                print("Invalid choice. Try again.")
+                print("Invalid category choice. Try again.")
         except ValueError:
             print("Please enter a valid number.")
