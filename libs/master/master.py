@@ -11,8 +11,12 @@ SCRIPT_CATEGORIES = {
     "Links Commands": {
         "New Link": r"C:\atari-monk\code\scripting\script\links\new.py",
     },
+    "Project": {
+        "New Prompt": r"C:\atari-monk\code\scripting\libs\project\prompt.py",
+        "Merge Files": r"C:\atari-monk\code\scripting\libs\project\merge.py",
+        "Commit Message": r"C:\atari-monk\code\scripting\libs\project\commit_msg.py"
+    },
     "Utility Commands": {
-        "New Prompt": r"C:\atari-monk\code\scripting\script\prompt_tools\prompt.py",
         "Boot Time": r"C:\atari-monk\code\scripting\libs\time\boot_time.py",
         "Print Json": r"C:\atari-monk\code\scripting\script\json\print_json.py"
     }

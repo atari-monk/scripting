@@ -30,3 +30,6 @@ def generate_prompt():
     
     pyperclip.copy(full_prompt)
     print("Prompt copied to clipboard! Paste it into your AI tool.")
+
+if __name__ == "__main__":
+    generate_prompt()
