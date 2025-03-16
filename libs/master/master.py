@@ -3,22 +3,22 @@ import subprocess
 
 SCRIPT_CATEGORIES = {
     "Project Tracker Commands": {
-        "New Task": r"C:\atari-monk\code\scripting\script\project-tracker\new.py",
-        "End Task": r"C:\atari-monk\code\scripting\script\project-tracker\end.py",
-        "Stats": r"C:\atari-monk\code\scripting\script\project-tracker\stats.py",
-        "Report": r"C:\atari-monk\code\scripting\script\project-tracker\report.py",
+        "New Task": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\new.py", "use_args": False},
+        "End Task": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\end.py", "use_args": False},
+        "Stats": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\stats.py", "use_args": True},
+        "Report": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\report.py", "use_args": True},
     },
     "Links Commands": {
-        "New Link": r"C:\atari-monk\code\scripting\script\links\new.py",
+        "New Link": {"path": r"C:\atari-monk\code\scripting\script\links\new.py", "use_args": False},
     },
     "Project": {
-        "New Prompt": r"C:\atari-monk\code\scripting\libs\project\prompt.py",
-        "Merge Files": r"C:\atari-monk\code\scripting\libs\project\merge.py",
-        "Commit Message": r"C:\atari-monk\code\scripting\libs\project\commit_msg.py"
+        "New Prompt": {"path": r"C:\atari-monk\code\scripting\libs\project\prompt.py", "use_args": False},
+        "Merge Files": {"path": r"C:\atari-monk\code\scripting\libs\project\merge.py", "use_args": False},
+        "Commit Message": {"path": r"C:\atari-monk\code\scripting\libs\project\commit_msg.py", "use_args": False}
     },
     "Utility Commands": {
-        "Boot Time": r"C:\atari-monk\code\scripting\libs\time\boot_time.py",
-        "Print Json": r"C:\atari-monk\code\scripting\script\json\print_json.py"
+        "Boot Time": {"path": r"C:\atari-monk\code\scripting\libs\time\boot_time.py", "use_args": False},
+        "Print Json": {"path": r"C:\atari-monk\code\scripting\script\json\print_json.py", "use_args": True}
     }
 }
 
@@ -36,19 +36,18 @@ def print_sub_menu(category):
     print("0. Back to Main Menu")
     return scripts
 
-def run_script(script_path, *args):
+def run_script(script_path, script_args):
     if not os.path.exists(script_path):
         print(f"Error: The script '{script_path}' does not exist.")
         return
 
-    command = ["python", script_path] + list(args)
-
+    command = ["python", script_path] + script_args
     try:
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
 
-def master_script(args=None):
+def master_script():
     while True:
         print_main_menu()
         category_choice = input("\nSelect a category: ")
@@ -76,14 +75,20 @@ def master_script(args=None):
 
                         if 0 <= script_index < len(scripts):
                             script_name = scripts[script_index]
-                            script_path = SCRIPT_CATEGORIES[selected_category][script_name]
-
-                            run_script(script_path, *args)
+                            script_data = SCRIPT_CATEGORIES[selected_category][script_name]
+                            script_path = script_data["path"]
+                            use_args_input = script_data["use_args"]
+                            
+                            script_args = []
+                            if use_args_input:
+                                script_args = input(f"Enter arguments for {script_name} (separated by spaces): ").split()
+                            
+                            print(f"\nRunning: {script_name} ({script_path}) with args: {script_args}")
+                            run_script(script_path, script_args)
                         else:
                             print("Invalid script choice. Try again.")
                     except ValueError:
                         print("Please enter a valid number.")
-
             else:
                 print("Invalid category choice. Try again.")
         except ValueError:
