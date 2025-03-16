@@ -78,10 +78,7 @@ def master_script(args=None):
                             script_name = scripts[script_index]
                             script_path = SCRIPT_CATEGORIES[selected_category][script_name]
 
-                            script_args = args if args else input(f"Enter arguments for {script_name} (separated by spaces): ").split()
-
-                            print(f"\nRunning: {script_name} ({script_path}) with args: {script_args}")
-                            run_script(script_path, *script_args)
+                            run_script(script_path, *args)
                         else:
                             print("Invalid script choice. Try again.")
                     except ValueError:

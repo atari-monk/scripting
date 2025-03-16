@@ -30,7 +30,7 @@ def merge():
 
     project_folder = os.path.join(base_folder, selected_folder)
 
-    file_extensions = ['.json', '.html', '.js', '.css']
+    file_extensions = ['.json', '.html', '.js', '.css', '.ts']
 
     output_file = os.path.join(project_folder, "merge.txt")
 
