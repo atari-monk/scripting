@@ -7,6 +7,7 @@ SCRIPT_CATEGORIES = {
         "End Task": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\end.py", "use_args": False},
         "Stats": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\stats.py", "use_args": True},
         "Report": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\report.py", "use_args": True},
+        "Sleep": {"path": r"C:\atari-monk\code\scripting\libs\time\sleep.py", "use_args": False}
     },
     "Links Commands": {
         "New Link": {"path": r"C:\atari-monk\code\scripting\script\links\new.py", "use_args": False},
