@@ -41,7 +41,20 @@ def get_files_to_merge(project_folder, file_extensions, ignored_projects, ignore
             if any(file.endswith(ext) for ext in file_extensions):
                 yield os.path.join(root, file)
 
-def write_file_contents(file_paths, project_folder, output_file):
+def write_md_file(file_paths, project_folder, output_file):
+    with open(output_file, "w", encoding="utf-8") as f:
+        for file_path in file_paths:
+            rel_path = os.path.relpath(file_path, project_folder)
+            f.write(f"### {rel_path}\n\n```typescript\n")
+            try:
+                with open(file_path, "r", encoding="utf-8") as file_content:
+                    content = file_content.read()
+                f.write(f"{content}\n\n")
+            except Exception as e:
+                f.write(f"Could not read file content: {e}\n\n")
+            f.write("```\n\n")
+
+def write_txt_file(file_paths, project_folder, output_file):
     with open(output_file, "w", encoding="utf-8") as f:
         for file_path in file_paths:
             rel_path = os.path.relpath(file_path, project_folder)
@@ -49,7 +62,7 @@ def write_file_contents(file_paths, project_folder, output_file):
             try:
                 with open(file_path, "r", encoding="utf-8") as file_content:
                     content = file_content.read()
-                f.write(f"Content:\n{content}\n\n")
+                f.write(f"{content}\n\n")
             except Exception as e:
                 f.write(f"Could not read file content: {e}\n\n")
 
@@ -65,10 +78,15 @@ def merge():
         return
     project_folder = os.path.join(base_folder, selected_folder)
     file_extensions = ['.json', '.html', '.js', '.css', '.ts']
-    output_file = os.path.join(project_folder, "merge.txt")
-    file_paths = get_files_to_merge(project_folder, file_extensions, ignored_projects, ignored_files)
-    write_file_contents(file_paths, project_folder, output_file)
-    print(f"File list with content saved to: {output_file}")
+    file_paths = list(get_files_to_merge(project_folder, file_extensions, ignored_projects, ignored_files))
 
+    output_file_txt = os.path.join(project_folder, "merge.txt")
+    write_txt_file(file_paths, project_folder, output_file_txt)
+    print(f"Text file saved to: {output_file_txt}")
+
+    output_file_md = os.path.join(project_folder, "merge.md")
+    write_md_file(file_paths, project_folder, output_file_md)
+    print(f"Markdown file saved to: {output_file_md}")
+    
 if __name__ == "__main__":
     merge()
