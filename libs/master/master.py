@@ -2,22 +2,25 @@ import os
 import subprocess
 
 SCRIPT_CATEGORIES = {
-    "Project Tracker Commands": {
+    "Project Tracker": {
         "New Task": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\new.py", "use_args": False},
         "End Task": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\end.py", "use_args": False},
         "Stats": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\stats.py", "use_args": True},
         "Report": {"path": r"C:\atari-monk\code\scripting\script\project-tracker\report.py", "use_args": True},
         "Sleep": {"path": r"C:\atari-monk\code\scripting\libs\time\sleep.py", "use_args": False}
     },
-    "Links Commands": {
-        "New Link": {"path": r"C:\atari-monk\code\scripting\script\links\new.py", "use_args": False},
-    },
     "Project": {
         "New Prompt": {"path": r"C:\atari-monk\code\scripting\libs\project\prompt.py", "use_args": False},
         "Merge Files": {"path": r"C:\atari-monk\code\scripting\libs\project\merge.py", "use_args": False},
         "Commit Message": {"path": r"C:\atari-monk\code\scripting\libs\project\commit_msg.py", "use_args": False}
     },
-    "Utility Commands": {
+    "Chrome": {
+        "Open": {"path": r"C:\atari-monk\code\scripting\libs\chrome\open.py", "use_args": False},
+    },
+    "Links": {
+        "New Link": {"path": r"C:\atari-monk\code\scripting\script\links\new.py", "use_args": False},
+    },
+    "Tool": {
         "Boot Time": {"path": r"C:\atari-monk\code\scripting\libs\time\boot_time.py", "use_args": False},
         "Print Json": {"path": r"C:\atari-monk\code\scripting\script\json\print_json.py", "use_args": True}
     }
