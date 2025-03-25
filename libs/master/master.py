@@ -17,6 +17,7 @@ SCRIPT_CATEGORIES = {
     "Chrome": {
         "Open": {"path": r"C:\atari-monk\code\scripting\libs\chrome\open.py", "use_args": False},
         "Prompt": {"path": r"C:\atari-monk\code\scripting\libs\chrome\prompt.py", "use_args": False},
+        "Store": {"path": r"C:\atari-monk\code\scripting\libs\chrome\save_tokens.py", "use_args": False},
     },
     "Links": {
         "New Link": {"path": r"C:\atari-monk\code\scripting\script\links\new.py", "use_args": False},

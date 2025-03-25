@@ -1,32 +1,16 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium_utils import get_driver, open_url, send_prompt, click_element, get_clipboard_text, save_text_to_file, close_driver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import pyperclip
-import time
 
-options = Options()
-options.add_argument(r"user-data-dir=C:\Users\ASUS\AppData\Local\Google\Chrome\User Data")
-options.add_argument("profile-directory=Default")
+driver = get_driver()
 
-driver = webdriver.Chrome(options=options)
-driver.get("https://chat.openai.com/")
+open_url(driver, "https://chat.openai.com/")
 
-wait = WebDriverWait(driver, 60)
-input_area = wait.until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
+send_prompt(driver, "Write a Python function that calculates the Fibonacci sequence.")
 
-prompt = "Write a Python function that calculates the Fibonacci sequence."
-input_area.send_keys(prompt)
-input_area.send_keys(Keys.RETURN)
+click_element(driver, By.XPATH, "//button[@data-testid='copy-turn-action-button']")
 
-wait.until(EC.presence_of_element_located((By.XPATH, "//button[@data-testid='copy-turn-action-button']"))).click()
+copied_text = get_clipboard_text()
 
-time.sleep(2)
-copied_text = pyperclip.paste()
+save_text_to_file(copied_text)
 
-with open("response.md", "w", encoding="utf-8") as file:
-    file.write(copied_text)
-
-driver.quit()
+close_driver(driver)

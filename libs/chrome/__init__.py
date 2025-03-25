@@ -1,1 +1,1 @@
-from .selenium_utils import create_chrome_options, open_url_with_selenium, wait_and_notify, get_driver, wait_for_element, send_prompt, close_driver
+from .selenium_utils import create_chrome_options, open_url_with_selenium, wait_and_notify, get_driver, open_url, wait_for_element, send_prompt, click_element, get_clipboard_text, save_text_to_file, close_driver
