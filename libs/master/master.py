@@ -12,6 +12,7 @@ SCRIPT_CATEGORIES = {
     "Project": {
         "New Prompt": {"path": r"C:\atari-monk\code\scripting\libs\project\prompt.py", "use_args": False},
         "Merge Files": {"path": r"C:\atari-monk\code\scripting\libs\project\merge.py", "use_args": False},
+        "Tree": {"path": r"C:\atari-monk\code\scripting\libs\file_system\folder_tree.py", "use_args": True},
         "Commit Message": {"path": r"C:\atari-monk\code\scripting\libs\project\commit_msg.py", "use_args": False}
     },
     "Chrome": {
