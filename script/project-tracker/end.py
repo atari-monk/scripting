@@ -5,7 +5,7 @@ from libs.project_tracker import get_file_path, update_end_time_for_active_tasks
 
 def main():
     config = {
-    'base_directory': r'C:\atari-monk\code\atari-monk-blog\project-tracker',
+    'base_directory': r'C:\atari-monk\code\blog\data\projects',
     'filename': 'tasks.json'
     }
     file_path = get_file_path(config, sys.argv)

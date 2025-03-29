@@ -6,7 +6,7 @@ from libs.links import add_new_link
 
 def main():
     config = {
-    'base_directory': r'C:\atari-monk\code\atari-monk-blog\links',
+    'base_directory': r'C:\atari-monk\code\blog\data\links',
     'file_name_1': 'links.json',
     'file_name_2': 'links_by_category.json'
     }

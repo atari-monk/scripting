@@ -4,7 +4,7 @@ from libs.project_tracker import get_file_paths, generate_markdown_report
 
 def main():
     config = {
-    'base_directory': r'C:\atari-monk\code\atari-monk-blog\project-tracker',
+    'base_directory': r'C:\atari-monk\code\blog\data\projects',
     'filename_1': 'tasks.json',
     'filename_2': 'stats.json'
     }
